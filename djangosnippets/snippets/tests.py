@@ -76,31 +76,3 @@ class EditSnippetTest(TestCase):
     def test_should_resolve_snippet_edit(self):
         found = resolve("/snippets/1/edit/")
         self.assertEqual(snippet_edit, found.func)
-
-"""
-class TopPageViewTest(TestCase):
-    def test_top_returns_200(self):
-        request = HttpRequest()
-        response = top(request)
-        self.assertEqual(response.status_code, 200)
-
-    def test_top_returns_expected_content(self):
-        request = HttpRequest()
-        response = top(request)
-        self.assertEqual(response.content, b"Hello World")
-
-    def test_top_routing_by_status(self):
-        response = self.client.get("/")
-        self.assertEqual(response.status_code, 200)
-
-    def test_top_routing_by_content(self):
-        response = self.client.get("/")
-        self.assertEqual(response.content, b"Hello World")
-"""
-
-"""
-class SnippetDetailTest(TestCase):
-    def test_should_resolve_snippet_detail(self):
-        found = resolve("/snippets/1/")
-        self.assertEqual(snippet_detail, found.func)
-"""
