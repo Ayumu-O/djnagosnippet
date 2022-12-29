@@ -6,6 +6,7 @@ from snippets.views import *
 
 # Create your tests here.
 
+"""
 class TopPageViewTest(TestCase):
     def test_top_returns_200(self):
         request = HttpRequest()
@@ -24,6 +25,16 @@ class TopPageViewTest(TestCase):
     def test_top_routing_by_content(self):
         response = self.client.get("/")
         self.assertEqual(response.content, b"Hello World")
+"""
+
+class TopPageTest(TestCase):
+    def test_top_page_returns_200_and_expected_title(self):
+        response = self.client.get("/")
+        self.assertContains(response, 'Django スニペット', status_code=200)
+
+    def test_top_page_uses_expected_template(self):
+        response = self.client.get("/")
+        self.assertTemplateUsed(response, 'snippets/top.html')
 
 class CreateSnippetTest(TestCase):
     def test_should_resolve_snippet_new(self):
