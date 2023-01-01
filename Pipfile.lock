@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "f0f84c0a334de41319775dbc9e9f323691811cff562b45bfbf45ce6cb9463bcd"
+            "sha256": "361e5f5d441b16e1355994a50a5d43d602c41b25b379c706a3d00eb34061cb84"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -39,6 +39,22 @@
             ],
             "index": "pypi",
             "version": "==22.2"
+        },
+        "django-pygments-renderer": {
+            "hashes": [
+                "sha256:b5548e94ea13271b87d2425768ec76f8062ea62032191999dbbe227a72cc1259",
+                "sha256:de503a87162e6bd0241fe164018108c484ff7a904ecb5759087c31f91541c3b6"
+            ],
+            "index": "pypi",
+            "version": "==0.0.1"
+        },
+        "pygments": {
+            "hashes": [
+                "sha256:b3ed06a9e8ac9a9aae5a6f5dbe78a8a58655d17b43b93c078f094ddc476ae297",
+                "sha256:fa7bd7bd2771287c0de303af8bfdfc731f51bd2c6a47ab69d117138893b82717"
+            ],
+            "markers": "python_version >= '3.6'",
+            "version": "==2.14.0"
         },
         "sqlparse": {
             "hashes": [
