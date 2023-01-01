@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'snippets.apps.SnippetsConfig',
     'django_bootstrap5',
+    'pygments_renderer',
 ]
 
 MIDDLEWARE = [
