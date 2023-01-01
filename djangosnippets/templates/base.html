@@ -3,7 +3,8 @@
   <head>
     <meta charset="utf-8" />
     <title>Django スニペット</title>
-    {% bootstrap_css %} {% bootstrap_javascript %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
     <link rel="stylesheet" href="{% static 'snippets/css/style.css' %}" />
     {% block extraheader %} {% endblock %}
   </head>
@@ -14,7 +15,9 @@
       </div>
     </nav>
     <main>
-      <div class="container">{% block main %}{% endblock %}</div>
+      <div class="container">
+        {% block main %}{% endblock %}
+      </div>
     </main>
   </body>
 </html>
