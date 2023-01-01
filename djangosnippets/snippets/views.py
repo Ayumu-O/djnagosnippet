@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_safe
 from django.http import HttpResponse, HttpResponseForbidden
 
 from snippets.models import Snippet
@@ -7,6 +8,7 @@ from snippets.forms import SnippetForm
 
 # Create your views here.
 
+@require_safe
 def top(request):
     snippets = Snippet.objects.all()
     context = {'snippets': snippets}
@@ -39,6 +41,7 @@ def snippet_edit(request, snippet_id):
         form = SnippetForm(instance=snippet)
     return render(request, 'snippets/snippet_edit.html', {'form': form})
 
+@require_safe
 def snippet_detail(request, snippet_id):
     snippet = get_object_or_404(Snippet, pk=snippet_id)
     context = {'snippet': snippet}
