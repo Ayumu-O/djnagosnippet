@@ -16,6 +16,7 @@
       <th>投稿者</th>
       <th>投稿日</th>
       <th>タイトル</th>
+      <th>コメント数</th>
     </tr>
   </thead>
   <tbody>
@@ -28,6 +29,7 @@
           {{ snippet.title }}
         </a>
       </th>
+      <th>{{ snippet.comment_set.all|length }}</th>
     </tr>
     {% endfor %}
   </tbody>
