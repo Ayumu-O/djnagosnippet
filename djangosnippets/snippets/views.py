@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404, get_list_or_40
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_safe
 from django.http import HttpResponse, HttpResponseForbidden
+from django.core.paginator import Paginator
 
 from snippets.models import Snippet, Comment
 from snippets.forms import SnippetForm, CommentForm
@@ -10,8 +11,14 @@ from snippets.forms import SnippetForm, CommentForm
 
 @require_safe
 def top(request):
-    snippets = Snippet.objects.select_related('created_by').prefetch_related('comments').all()
-    context = {'snippets': snippets}
+    snippets = Snippet.objects.\
+        select_related('created_by').\
+        prefetch_related('comments').\
+        order_by('-created_at').all()
+    paginator = Paginator(snippets, 10)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    context = {'page_obj': page_obj}
     return render(request, 'snippets/top.html', context)
 
 @login_required
