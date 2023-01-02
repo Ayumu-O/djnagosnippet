@@ -1,4 +1,8 @@
 {% load django_bootstrap5 %}
+<script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="/static/taggit_selectize/js/selectize.js"></script>
+<link href="/static/taggit_selectize/css/selectize.django.css"
+  type="text/css" media="all" rel="stylesheet"/>
 <form method="post">
   {% csrf_token %}
   {% bootstrap_form form layout='horizontal' %}

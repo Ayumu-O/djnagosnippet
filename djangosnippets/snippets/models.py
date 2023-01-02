@@ -1,7 +1,7 @@
 from django.db import models
 from django.conf import settings
 
-from taggit.managers import TaggableManager
+from taggit_selectize.managers import TaggableManager
 
 # Create your models here.
 

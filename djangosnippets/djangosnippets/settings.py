@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'pygments_renderer',
     'debug_toolbar',
     'taggit',
+    'taggit_selectize',
 ]
 
 MIDDLEWARE = [
@@ -151,4 +152,9 @@ LOGGING = {
     }
 }
 
+# debug-toolbar 用
 INTERNAL_IPS = ("127.0.0.1",)
+
+# taggit-selectize 用
+TAGGIT_TAGS_FROM_STRING = 'taggit_selectize.utils.parse_tags'
+TAGGIT_STRING_FROM_TAGS = 'taggit_selectize.utils.join_tags'

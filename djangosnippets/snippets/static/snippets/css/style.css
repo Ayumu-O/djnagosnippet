@@ -25,3 +25,12 @@ main {
 .source-code > .highlight > pre {
   margin-top: 1rem;
 }
+
+.selectize-control {
+  padding: 0;
+  border-style: none;
+}
+.selectize-input {
+  box-shadow: none !important;
+  border-radius: 0.375rem !important;
+}
