@@ -62,7 +62,7 @@
     {% for comment in comments %}
     <div class="comment card mb-2">
       <div class="card-body">
-        <div class="card-title">{{ comment.content }}</div>
+        <div class="card-title">{{ comment.content|linebreaks|urlize }}</div>
         <div class="card-subtitle text-muted"
           >by {{ comment.created_by }} ({{ comment.created_at }})</div
         >
@@ -71,11 +71,13 @@
     {% endfor %}
   </div> <!-- #comments -->
   {% endif %}
+  {% if user.is_authenticated %}
   <h5>コメントを投稿する</h5>
   <form action="{% url 'comment_new' snippet.id %}" method="post" id="comment-form">
     {% csrf_token %}
     {% bootstrap_form comment_form show_label=False %}
     {% bootstrap_button button_type='submit' content='投稿' %}
   </form>
+  {% endif %}
 </div> <!-- #comment-box -->
 {% endblock %}
