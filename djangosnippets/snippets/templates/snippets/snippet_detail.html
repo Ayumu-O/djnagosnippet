@@ -16,7 +16,7 @@
 </div>
 
 <div class="source-code">
-  {{ snippet.code|pygmentize:"python3" }}
+  {{ snippet.code|pygmentize:snippet.lang }}
 </div>
 
 <p>{{ snippet.description|urlize }}</p>
