@@ -4,7 +4,7 @@ from django.views.decorators.http import require_safe
 from django.http import HttpResponse, HttpResponseForbidden
 from django.core.paginator import Paginator
 
-from snippets.models import Snippet, Comment, Tag
+from snippets.models import Snippet, Comment
 from snippets.forms import SnippetForm, CommentForm
 
 # Create your views here.

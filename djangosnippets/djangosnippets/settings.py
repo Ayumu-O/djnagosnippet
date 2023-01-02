@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django_bootstrap5',
     'pygments_renderer',
     'debug_toolbar',
+    'taggit',
 ]
 
 MIDDLEWARE = [

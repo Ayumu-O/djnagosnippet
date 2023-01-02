@@ -1,6 +1,6 @@
 from django import forms
 
-from snippets.models import Snippet, Comment, Tag
+from snippets.models import Snippet, Comment
 
 class SnippetForm(forms.ModelForm):
     class Meta:

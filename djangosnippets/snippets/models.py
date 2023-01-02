@@ -1,17 +1,9 @@
 from django.db import models
 from django.conf import settings
 
+from taggit.managers import TaggableManager
+
 # Create your models here.
-
-class Tag(models.Model):
-    name = models.CharField('タグ名', max_length=20)
-    created_at = models.DateTimeField('作成日', auto_now_add=True)
-
-    class Meta():
-        db_table = 'tags'
-
-    def __str__(self):
-        return self.name
 
 class Snippet(models.Model):
     title = models.CharField('タイトル', max_length=128)
@@ -23,7 +15,7 @@ class Snippet(models.Model):
         related_name="snippets",
         verbose_name='投稿者',
         on_delete=models.CASCADE)
-    tags = models.ManyToManyField(Tag, verbose_name='タグ', blank=True)
+    tags = TaggableManager(verbose_name='タグ')
     created_at = models.DateTimeField('投稿日', auto_now_add=True)
     updated_at = models.DateTimeField('更新日', auto_now=True)
 

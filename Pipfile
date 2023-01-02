@@ -8,6 +8,7 @@ django = "*"
 django-bootstrap5 = "*"
 django-pygments-renderer = "*"
 django-debug-toolbar = "*"
+django-taggit = "*"
 
 [dev-packages]
 

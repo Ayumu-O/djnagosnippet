@@ -15,16 +15,12 @@
 
 <div class="tags">
   {% if tags %}
-  <ul class="justify-content-start">
+  <ul class="nav justify-content-start">
     {% for tag in tags %}
-      <li><a href="#" class="btn btn-outine-primary">{{ tag }}</a></li>
+      <li><a href="#" class="btn btn-outline-primary me-2">{{ tag }}</a></li>
     {% endfor %}
   </ul>
   {% endif %}
-  <div class="input-group mb-3">
-    <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2">
-    <button class="btn btn-outline-secondary" type="button" id="button-addon2">Button</button>
-  </div>
 </div>
 
 <div class="source-code">
