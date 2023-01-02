@@ -10,7 +10,7 @@ from snippets.forms import SnippetForm, CommentForm
 
 @require_safe
 def top(request):
-    snippets = Snippet.objects.all()
+    snippets = Snippet.objects.select_related('created_by').prefetch_related('comments').all()
     context = {'snippets': snippets}
     return render(request, 'snippets/top.html', context)
 
@@ -52,8 +52,8 @@ def snippet_delete(request, snippet_id):
 
 @require_safe
 def snippet_detail(request, snippet_id):
-    snippet = get_object_or_404(Snippet, pk=snippet_id)
-    comments = Comment.objects.filter(to=snippet.id)
+    snippet = get_object_or_404(Snippet.objects.select_related('created_by'), pk=snippet_id)
+    comments = Comment.objects.filter(to=snippet.id).select_related('created_by')
     context = {'snippet': snippet, 'comments': comments, 'comment_form': CommentForm()}
     return render(request, 'snippets/snippet_detail.html', context)
 
