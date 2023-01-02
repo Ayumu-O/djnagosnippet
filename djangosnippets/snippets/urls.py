@@ -7,4 +7,5 @@ urlpatterns = [
     path('<int:snippet_id>/', snippet_detail, name='snippet_detail'),
     path('<int:snippet_id>/edit/', snippet_edit, name='snippet_edit'),
     path('<int:snippet_id>/delete/', snippet_delete, name='snippet_delete'),
+    path('<int:snippet_id>/comments/new/', comment_new, name='comment_new')
 ]

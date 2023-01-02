@@ -3,8 +3,8 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_safe
 from django.http import HttpResponse, HttpResponseForbidden
 
-from snippets.models import Snippet
-from snippets.forms import SnippetForm
+from snippets.models import Snippet, Comment
+from snippets.forms import SnippetForm, CommentForm
 
 # Create your views here.
 
@@ -53,10 +53,25 @@ def snippet_delete(request, snippet_id):
 @require_safe
 def snippet_detail(request, snippet_id):
     snippet = get_object_or_404(Snippet, pk=snippet_id)
-    context = {'snippet': snippet}
+    comments = Comment.objects.filter(to=snippet.id)
+    context = {'snippet': snippet, 'comments': comments, 'comment_form': CommentForm()}
     return render(request, 'snippets/snippet_detail.html', context)
 
 @login_required
 def my_snippets(request):
     my_snippets = Snippet.objects.filter(created_by_id=request.user.id)
     return render(request, 'snippets/mypage.html', {'snippets': my_snippets})
+
+@login_required
+def comment_new(request, snippet_id):
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.created_by = request.user
+            comment.to = get_object_or_404(Snippet, pk=snippet_id)
+            comment.save()
+            return redirect('snippet_detail', snippet_id=snippet_id)
+    else:
+        form = CommentForm()
+    return render(request, 'snippets/snippet_detail.html', {'comment_form': form})

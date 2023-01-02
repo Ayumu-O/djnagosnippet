@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load django_bootstrap5 %}
 {% load pygmentize %}
 
 {% block extraheader %}
@@ -53,4 +54,28 @@
   </div> <!-- .modal .fade -->
 </div> <!-- .user-action -->
 {% endif %}
+
+<div id="comment-box" class="border mt-5 p-3">
+  {% if comments %}
+  <div id="comments" class="mb-4">
+    <h5>コメント一覧</h5>
+    {% for comment in comments %}
+    <div class="comment card mb-2">
+      <div class="card-body">
+        <div class="card-title">{{ comment.content }}</div>
+        <div class="card-subtitle text-muted"
+          >by {{ comment.created_by }} ({{ comment.created_at }})</div
+        >
+      </div>
+    </div>
+    {% endfor %}
+  </div> <!-- #comments -->
+  {% endif %}
+  <h5>コメントを投稿する</h5>
+  <form action="{% url 'comment_new' snippet.id %}" method="post" id="comment-form">
+    {% csrf_token %}
+    {% bootstrap_form comment_form show_label=False %}
+    {% bootstrap_button button_type='submit' content='投稿' %}
+  </form>
+</div> <!-- #comment-box -->
 {% endblock %}
