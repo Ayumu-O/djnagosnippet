@@ -13,6 +13,20 @@
   投稿日: {{ snippet.created_at|date:"DATETIME_FORMAT" }}
 </div>
 
+<div class="tags">
+  {% if tags %}
+  <ul class="justify-content-start">
+    {% for tag in tags %}
+      <li><a href="#" class="btn btn-outine-primary">{{ tag }}</a></li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+  <div class="input-group mb-3">
+    <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2">
+    <button class="btn btn-outline-secondary" type="button" id="button-addon2">Button</button>
+  </div>
+</div>
+
 <div class="source-code">
   {{ snippet.code|pygmentize:snippet.lang }}
 </div>

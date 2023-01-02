@@ -4,7 +4,7 @@ from django.views.decorators.http import require_safe
 from django.http import HttpResponse, HttpResponseForbidden
 from django.core.paginator import Paginator
 
-from snippets.models import Snippet, Comment
+from snippets.models import Snippet, Comment, Tag
 from snippets.forms import SnippetForm, CommentForm
 
 # Create your views here.
@@ -37,16 +37,23 @@ def snippet_new(request):
 @login_required
 def snippet_edit(request, snippet_id):
     snippet = get_object_or_404(Snippet, pk=snippet_id)
+    checked_tags = snippet.tags.all()
+    all_tags = Tag.objects.all()
     if snippet.created_by_id != request.user.id:
         return HttpResponseForbidden('このスニペットの編集は許可されていません')
     if request.method == 'POST':
         form = SnippetForm(request.POST, instance=snippet)
         if form.is_valid():
             form.save()
+            tag_ids = request.POST.getlist('tag[]')
+            tags = Tag.objects.filter(id__in=tag_ids)
+            snippet.tags.set(tags)
+            snippet.save()
             return redirect('snippet_detail', snippet_id=snippet_id)
     else:
         form = SnippetForm(instance=snippet)
-    return render(request, 'snippets/snippet_edit.html', {'form': form})
+    context = {'form': form, 'already_checked': checked_tags, 'all_tags': all_tags}
+    return render(request, 'snippets/snippet_edit.html', context)
 
 @require_safe
 @login_required
@@ -60,8 +67,14 @@ def snippet_delete(request, snippet_id):
 @require_safe
 def snippet_detail(request, snippet_id):
     snippet = get_object_or_404(Snippet.objects.select_related('created_by'), pk=snippet_id)
-    comments = Comment.objects.filter(to=snippet.id).select_related('created_by')
-    context = {'snippet': snippet, 'comments': comments, 'comment_form': CommentForm()}
+    comments = snippet.comments.all().select_related('created_by')
+    tags = snippet.tags.all()
+    context = {
+        'snippet': snippet,
+        'tags': tags,
+        'comments': comments,
+        'comment_form': CommentForm()
+    }
     return render(request, 'snippets/snippet_detail.html', context)
 
 @login_required
