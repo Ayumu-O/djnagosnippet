@@ -55,6 +55,7 @@
 </div> <!-- .user-action -->
 {% endif %}
 
+{% if comments or user.is_authenticated %}
 <div id="comment-box" class="border mt-5 p-3">
   {% if comments %}
   <div id="comments" class="mb-4">
@@ -64,7 +65,7 @@
       <div class="card-body">
         <div class="card-title">{{ comment.content|linebreaks|urlize }}</div>
         <div class="card-subtitle text-muted"
-          >by {{ comment.created_by }} ({{ comment.created_at }})</div
+        >by {{ comment.created_by }} ({{ comment.created_at }})</div
         >
       </div>
     </div>
@@ -80,4 +81,5 @@
   </form>
   {% endif %}
 </div> <!-- #comment-box -->
+{% endif %}
 {% endblock %}
