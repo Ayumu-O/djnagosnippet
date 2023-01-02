@@ -42,6 +42,15 @@ def snippet_edit(request, snippet_id):
     return render(request, 'snippets/snippet_edit.html', {'form': form})
 
 @require_safe
+@login_required
+def snippet_delete(request, snippet_id):
+    snippet = get_object_or_404(Snippet, pk=snippet_id)
+    if snippet.created_by_id != request.user.id:
+        return HttpResponseForbidden('このスニペットの削除は許可されていません')
+    snippet.delete()
+    return redirect('top')
+
+@require_safe
 def snippet_detail(request, snippet_id):
     snippet = get_object_or_404(Snippet, pk=snippet_id)
     context = {'snippet': snippet}

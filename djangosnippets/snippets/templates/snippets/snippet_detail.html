@@ -10,14 +10,47 @@
 
 <div class="snippet-date">
   投稿日: {{ snippet.created_at|date:"DATETIME_FORMAT" }}
-  {% if user.is_authenticated and snippet.created_by_id == user.id %}
-    <a href="{% url 'snippet_edit' snippet.id %}">編集</a>
-  {% endif %}
 </div>
 
 <div class="source-code">
   {{ snippet.code|pygmentize:snippet.lang }}
 </div>
 
-<p>{{ snippet.description|urlize }}</p>
+<div class="description">
+  <p>{{ snippet.description|urlize }}</p>
+</div>
+
+{% if user.is_authenticated and snippet.created_by_id == user.id %}
+<div class="user-action">
+  <a href="{% url 'snippet_edit' snippet.id %}" class="btn btn-primary">編集</a>
+  <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal"
+    >削除</button
+  >
+
+  <div class="modal fade" id="deleteModal" tabindex="-1"
+    aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="deleteModalLabel">本当に削除しますか?</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            ></button
+          >
+        </div> <!-- .modal-header -->
+        <div class="modal-body">
+          <p>削除すると元に戻せません。本当に削除しますか?</p>
+        </div> <!-- .modal-body -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+            >キャンセル</button
+          >
+          <a href="{% url 'snippet_delete' snippet.id %}" class="btn btn-danger"
+            >削除</a
+          >
+        </div> <!-- .modal-footer -->
+      </div> <!-- .modal-content -->
+    </div> <!-- .modal-dialog -->
+  </div> <!-- .modal .fade -->
+</div> <!-- .user-action -->
+{% endif %}
 {% endblock %}
