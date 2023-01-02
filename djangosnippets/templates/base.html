@@ -1,4 +1,6 @@
-{% load static %} {% load django_bootstrap5 %}
+{% load static %}
+{% load django_bootstrap5 %}
+
 <html>
   <head>
     <meta charset="utf-8" />
@@ -14,7 +16,18 @@
         <a href="/" class="navbar-brand">Django スニペット</a>
         <ul class="navbar-nav mr-md-2">
           {% if user.is_authenticated %}
-          <li class="nav-item"><a href="{% url 'logout' %}" class="nav-link">ログアウト</a></li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button"
+              data-bs-toggle="dropdown" aria-expanded="false"
+              >こんにちは {{ user.username }} さん</a
+            >
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">アカウント情報の変更</a></li>
+              <li><a class="dropdown-item" href="#">パスワードの変更</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="{% url 'logout' %}">ログアウト</a></li>
+            </ul>
+          </li>
           {% else %}
           <li class="nav-item"><a href="{% url 'login' %}" class="nav-link">ログイン</a></li>
           <li class="nav-item"><a href="{% url 'signup' %}" class="nav-link">会員登録</a></li>
