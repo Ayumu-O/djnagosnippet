@@ -37,22 +37,16 @@ def snippet_new(request):
 @login_required
 def snippet_edit(request, snippet_id):
     snippet = get_object_or_404(Snippet, pk=snippet_id)
-    checked_tags = snippet.tags.all()
-    all_tags = Tag.objects.all()
     if snippet.created_by_id != request.user.id:
         return HttpResponseForbidden('このスニペットの編集は許可されていません')
     if request.method == 'POST':
         form = SnippetForm(request.POST, instance=snippet)
         if form.is_valid():
             form.save()
-            tag_ids = request.POST.getlist('tag[]')
-            tags = Tag.objects.filter(id__in=tag_ids)
-            snippet.tags.set(tags)
-            snippet.save()
             return redirect('snippet_detail', snippet_id=snippet_id)
     else:
         form = SnippetForm(instance=snippet)
-    context = {'form': form, 'already_checked': checked_tags, 'all_tags': all_tags}
+    context = {'form': form}
     return render(request, 'snippets/snippet_edit.html', context)
 
 @require_safe

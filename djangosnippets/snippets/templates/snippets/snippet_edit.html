@@ -5,19 +5,7 @@
 <h2>スニペットの登録</h2>
 <form method="post">
   {% csrf_token %}
-  {% bootstrap_form form layout='horizontal' exclude="tags, lang, code, description" %}
-  <div class="row mb-3">
-    <label class="col-sm-2 col-form-label" for="id_tags">タグ</label>
-    <div class="col-sm-10" id="id_tags">
-      {% for tag in all_tags %}
-      <input id="id_tag_{{ tag.id }}" class="btn-check" type="checkbox" name="tag[]"
-        value="{{ tag.id }}" autocomplete="off"
-        {% if tag in already_checked %}checked{% endif %}>
-      <label class="btn btn-outline-primary" for="id_tag_{{ tag.id }}">{{ tag }}</label>
-      {% endfor %}
-    </div>
-  </div>
-  {% bootstrap_form form layout='horizontal' exclude="title, tags" %}
+  {% bootstrap_form form layout='horizontal' %}
   {% bootstrap_button button_type="submit" content="保存" %}
 </form>
 {% endblock %}
