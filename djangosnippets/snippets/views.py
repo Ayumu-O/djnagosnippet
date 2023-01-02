@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404, get_list_or_404
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_safe
 from django.http import HttpResponse, HttpResponseForbidden
@@ -46,3 +46,8 @@ def snippet_detail(request, snippet_id):
     snippet = get_object_or_404(Snippet, pk=snippet_id)
     context = {'snippet': snippet}
     return render(request, 'snippets/snippet_detail.html', context)
+
+@login_required
+def my_snippets(request):
+    my_snippets = Snippet.objects.filter(created_by_id=request.user.id)
+    return render(request, 'snippets/mypage.html', {'snippets': my_snippets})

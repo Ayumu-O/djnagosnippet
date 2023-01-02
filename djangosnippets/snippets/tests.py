@@ -5,6 +5,7 @@ from django.urls import resolve
 
 from snippets.views import *
 from snippets.models import Snippet
+from snippets.forms import SnippetForm
 
 UserModel = get_user_model()
 
@@ -45,6 +46,19 @@ class TopPageRenderSnippetsTest(TestCase):
         response = top(request)
         self.assertContains(response, self.user.username)
 
+class MyPageTest(TestCase):
+    def setUp(self):
+        self.user = UserModel.objects.create(
+            username='test_user',
+            email='test@example.com',
+            password='secret'
+        )
+        self.client.force_login(self.user)
+
+    def test_render_message_when_no_snippets(self):
+        response = self.client.get('/mypage')
+        self.assertContains(response, 'スニペットはまだ投稿されていません', status_code=200)
+
 class SnippetDetailTest(TestCase):
     def setUp(self):
         self.user = UserModel.objects.create(
@@ -81,11 +95,20 @@ class CreateSnippetTest(TestCase):
         self.assertContains(response, 'スニペットの登録', status_code=200)
 
     def test_create_snippet(self):
-        data = {'title': 'タイトル', 'code': 'コード', 'description': '解説'}
+        data = {'title': 'test_title', 'lang': 'bash', 'code': 'コード', 'description': '解説'}
         self.client.post('/snippets/new/', data)
-        snippet = Snippet.objects.get(title='タイトル')
-        self.assertEqual('コード', snippet.code)
-        self.assertEqual('解説', snippet.description)
+        snippet = Snippet.objects.get(title=data['title'])
+        self.assertEqual(data['lang'], snippet.lang)
+        self.assertEqual(data['code'], snippet.code)
+        self.assertEqual(data['description'], snippet.description)
+
+    def test_lang_default_is_text(self):
+        data = {'title': 'test_title', 'code': 'コード', 'description': '解説'}
+        self.client.post('/snippets/new/', data)
+        snippet = Snippet.objects.get(title=data['title'])
+        self.assertEqual('text', snippet.lang)
+        self.assertEqual(data['code'], snippet.code)
+        self.assertEqual(data['description'], snippet.description)
 
 class EditSnippetTest(TestCase):
     def test_should_resolve_snippet_edit(self):

@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block main %}
+<h2>{{ user.username }} さんのマイページ</h2>
+{% if snippets %}
+<table class="table">
+  <thead>
+    <tr>
+      <th>投稿日</th>
+      <th>タイトル</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for snippet in snippets %}
+    <tr>
+      <th>{{ snippet.created_at }}</th>
+      <th>
+        <a href="{% url 'snippet_detail' snippet.id %}">
+          {{ snippet.title }}
+        </a>
+      </th>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<p>スニペットはまだ投稿されていません。</p>
+{% endif %}
+<a href="{% url 'snippet_new' %}" class="btn btn-primary"
+  >スニペットを作成する</a
+>
+</div>
+
+{% endblock %}

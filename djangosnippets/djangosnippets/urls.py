@@ -16,10 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from snippets.views import top
+from snippets.views import top, my_snippets
 
 urlpatterns = [
     path('', top, name='top'),
+    path('mypage', my_snippets, name='mypage'),
     path('snippets/', include('snippets.urls')), # snippets/urls.py の読み込み
     path('accounts/', include('accounts.urls')),
     path('admin/', admin.site.urls),
