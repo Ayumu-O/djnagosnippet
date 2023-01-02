@@ -1,4 +1,5 @@
-from django.urls import path
+from django.urls import path, include
+from django.conf import settings
 
 from snippets.views import *
 
@@ -9,3 +10,7 @@ urlpatterns = [
     path('<int:snippet_id>/delete/', snippet_delete, name='snippet_delete'),
     path('<int:snippet_id>/comments/new/', comment_new, name='comment_new')
 ]
+
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns.append(path('__debuf__/', include(debug_toolbar.urls)))

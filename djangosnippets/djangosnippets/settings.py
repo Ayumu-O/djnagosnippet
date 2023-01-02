@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'django_bootstrap5',
     'pygments_renderer',
+    'debug_toolbar',
 ]
 
 MIDDLEWARE = [
@@ -51,6 +52,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
 ROOT_URLCONF = 'djangosnippets.urls'
@@ -147,3 +149,5 @@ LOGGING = {
         }
     }
 }
+
+INTERNAL_IPS = ("127.0.0.1",)
