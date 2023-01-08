@@ -11,6 +11,7 @@ django-debug-toolbar = "*"
 django-taggit = "*"
 taggit-selectize = "*"
 six = "*"
+django-bootstrap-icons = "*"
 
 [dev-packages]
 

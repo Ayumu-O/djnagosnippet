@@ -37,6 +37,9 @@ main {
 }
 
 /* table */
+.table > thead svg {
+  margin-bottom: 4px;
+}
 .table-date {
   width: 185px;
 }

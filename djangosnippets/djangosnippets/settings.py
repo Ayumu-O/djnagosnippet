@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'snippets.apps.SnippetsConfig',
     'accounts.apps.AccountsConfig',
     'django_bootstrap5',
+    'django_bootstrap_icons',
     'pygments_renderer',
     'debug_toolbar',
     'taggit',

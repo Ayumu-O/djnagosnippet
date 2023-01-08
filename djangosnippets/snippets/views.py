@@ -79,7 +79,11 @@ def my_snippets(request):
         .prefetch_related('tags')\
         .prefetch_related('comments')\
         .filter(created_by_id=request.user.id).order_by('-created_at')
-    return render(request, 'snippets/mypage.html', {'snippets': my_snippets})
+    paginator = Paginator(my_snippets, 10)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    context = {'page_obj': page_obj}
+    return render(request, 'snippets/mypage.html', context)
 
 @login_required
 def comment_new(request, snippet_id):

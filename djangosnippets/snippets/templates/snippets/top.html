@@ -10,55 +10,7 @@
 </div>
 
 {% if page_obj %}
-<table class="table">
-  <thead>
-    <tr>
-      <th>投稿者</th>
-      <th>投稿日</th>
-      <th>タイトル</th>
-      <th>タグ</th>
-      <th>コメント数</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for snippet in page_obj %}
-    <tr>
-      <th class="align-middle">{{ snippet.created_by }}</th>
-      <th class="table-date align-middle">{{ snippet.created_at|date:"Y/m/d H:i:s"  }}</th>
-      <th class="align-middle">
-        <a href="{% url 'snippet_detail' snippet.id %}">
-          {{ snippet.title }}
-        </a>
-      </th>
-      <th class="align-middle">
-        {% for tag in snippet.tags.all %}
-          <a href="#" class="btn btn-outline-primary btn-sm me-1 mb-1 ">{{ tag }}</a>
-        {% endfor %}
-      </th>
-      <th class="align-middle text-center">{{ snippet.comments.all|length }}</th>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
-<nav aria-label="Page navigation">
-  <ul class="pagination justify-content-center">
-    <li class="page-item {% if not page_obj.has_previous %}disabled{% endif %}">
-      <a href="?page=1" class="page-link" aria-label="First">
-        <span aria-hidden="true">&laquo;</span>
-      </a>
-    </li>
-    {% for page in page_obj.paginator.page_range %}
-    <li class="page-item {% if page_obj.number == page %}active{% endif %}">
-      <a href="?page={{ page }}" class="page-link">{{ page }}</a>
-    </li>
-    {% endfor %}
-    <li class="page-item {% if not page_obj.has_next %}disabled{% endif %}">
-      <a href="?page={{ page_obj.paginator.num_pages }}" class="page-link" aria-label="Last">
-        <span aria-hidden="true">&raquo;</span>
-      </a>
-    </li>
-  </ul>
-</nav>
+{% include "snippets/table.html" with page_obj=page_obj need_poster=True %}
 {% else %}
 <p>スニペットはまだ投稿されていません。</p>
 {% endif %}
