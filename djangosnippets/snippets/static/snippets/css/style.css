@@ -26,6 +26,7 @@ main {
   margin-top: 1rem;
 }
 
+/* form */
 .selectize-control {
   padding: 0;
   border-style: none;
@@ -33,4 +34,9 @@ main {
 .selectize-input {
   box-shadow: none !important;
   border-radius: 0.375rem !important;
+}
+
+/* table */
+.table-date {
+  width: 185px;
 }

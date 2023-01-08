@@ -8,17 +8,25 @@
     <tr>
       <th>投稿日</th>
       <th>タイトル</th>
+      <th>タグ</th>
+      <th>コメント数</th>
     </tr>
   </thead>
   <tbody>
     {% for snippet in snippets %}
     <tr>
-      <th>{{ snippet.created_at }}</th>
-      <th>
+      <th class="table-date align-middle">{{ snippet.created_at|date:"Y/m/d H:i:s" }}</th>
+      <th class="align-middle">
         <a href="{% url 'snippet_detail' snippet.id %}">
           {{ snippet.title }}
         </a>
       </th>
+      <th>
+        {% for tag in snippet.tags.all %}
+          <a href="#" class="btn btn-outline-primary btn-sm me-1 mb-1 ">{{ tag }}</a>
+        {% endfor %}
+      </th>
+      <th class="align-middle text-center">{{ snippet.comments.all|length }}</th>
     </tr>
     {% endfor %}
   </tbody>

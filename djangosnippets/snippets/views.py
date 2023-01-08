@@ -11,10 +11,11 @@ from snippets.forms import SnippetForm, CommentForm
 
 @require_safe
 def top(request):
-    snippets = Snippet.objects.\
-        select_related('created_by').\
-        prefetch_related('comments').\
-        order_by('-created_at').all()
+    snippets = Snippet.objects\
+        .select_related('created_by')\
+        .prefetch_related('tags')\
+        .prefetch_related('comments')\
+        .order_by('-created_at').all()
     paginator = Paginator(snippets, 10)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
@@ -29,6 +30,7 @@ def snippet_new(request):
             snippet = form.save(commit=False)
             snippet.created_by = request.user
             snippet.save()
+            form.save_m2m()
             return redirect(snippet_detail, snippet_id=snippet.pk)
     else:
         form = SnippetForm()
@@ -73,7 +75,10 @@ def snippet_detail(request, snippet_id):
 
 @login_required
 def my_snippets(request):
-    my_snippets = Snippet.objects.filter(created_by_id=request.user.id)
+    my_snippets = Snippet.objects\
+        .prefetch_related('tags')\
+        .prefetch_related('comments')\
+        .filter(created_by_id=request.user.id).order_by('-created_at')
     return render(request, 'snippets/mypage.html', {'snippets': my_snippets})
 
 @login_required
