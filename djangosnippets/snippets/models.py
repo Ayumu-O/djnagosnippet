@@ -15,7 +15,7 @@ class Snippet(models.Model):
         related_name="snippets",
         verbose_name='投稿者',
         on_delete=models.CASCADE)
-    tags = TaggableManager(verbose_name='タグ')
+    tags = TaggableManager(verbose_name='タグ', blank=True)
     created_at = models.DateTimeField('投稿日', auto_now_add=True)
     updated_at = models.DateTimeField('更新日', auto_now=True)
 
