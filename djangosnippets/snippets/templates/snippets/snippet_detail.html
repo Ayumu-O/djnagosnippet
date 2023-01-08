@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load django_bootstrap5 %}
+{% load bootstrap_icons %}
 {% load pygmentize %}
 
 {% block extraheader %}
@@ -17,7 +18,9 @@
   {% if tags %}
   <ul class="nav justify-content-start">
     {% for tag in tags %}
-      <li><a href="#" class="btn btn-outline-primary me-2">{{ tag }}</a></li>
+      <li><a href="#" class="btn btn-outline-primary me-2"
+        >{% bs_icon 'tag-fill' %} {{ tag }}</a></li
+      >
     {% endfor %}
   </ul>
   {% endif %}
@@ -33,9 +36,11 @@
 
 {% if user.is_authenticated and snippet.created_by_id == user.id %}
 <div class="user-action">
-  <a href="{% url 'snippet_edit' snippet.id %}" class="btn btn-primary">編集</a>
+  <a href="{% url 'snippet_edit' snippet.id %}" class="btn btn-primary"
+    >編集 {% bs_icon 'pencil-square' %}</a
+  >
   <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal"
-    >削除</button
+    >削除 {% bs_icon 'trash-fill' %}</button
   >
 
   <div class="modal fade" id="deleteModal" tabindex="-1"
@@ -56,7 +61,7 @@
             >キャンセル</button
           >
           <a href="{% url 'snippet_delete' snippet.id %}" class="btn btn-danger"
-            >削除</a
+            >削除 {% bs_icon 'trash-fill' %}</a
           >
         </div> <!-- .modal-footer -->
       </div> <!-- .modal-content -->
@@ -87,7 +92,7 @@
   <form action="{% url 'comment_new' snippet.id %}" method="post" id="comment-form">
     {% csrf_token %}
     {% bootstrap_form comment_form show_label=False %}
-    {% bootstrap_button button_type='submit' content='投稿' %}
+    <button type="submit" class="btn btn-primary">投稿 {% bs_icon 'send-fill' %}</button>
   </form>
   {% endif %}
 </div> <!-- #comment-box -->

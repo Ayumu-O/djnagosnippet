@@ -1,7 +1,9 @@
 main {
   padding: 2rem 0;
 }
-
+svg {
+  margin-bottom: 4px;
+}
 /* top */
 .welcome {
   padding: 3rem 0;
@@ -37,8 +39,8 @@ main {
 }
 
 /* table */
-.table > thead svg {
-  margin-bottom: 4px;
+.table-poster {
+  width: 85px;
 }
 .table-date {
   width: 185px;

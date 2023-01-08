@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load bootstrap_icons %}
 
 {% block main %}
 <h2>{{ user.username }} さんのマイページ</h2>
@@ -8,7 +9,7 @@
 <p>スニペットはまだ投稿されていません。</p>
 {% endif %}
 <a href="{% url 'snippet_new' %}" class="btn btn-primary"
-  >スニペットを作成する</a
+  >スニペットを作成する {% bs_icon 'plus-circle' %}</a
 >
 </div>
 

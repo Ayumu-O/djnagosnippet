@@ -4,9 +4,9 @@
   <thead>
     <tr>
       {% if need_poster %}
-      <th>{% bs_icon 'person-circle' %} 投稿者</th>
+      <th class="table-poster">{% bs_icon 'person-circle' %} 投稿者</th>
       {% endif %}
-      <th>{% bs_icon 'calendar3' %} 投稿日</th>
+      <th class="table-date">{% bs_icon 'calendar3' %} 投稿日</th>
       <th>{% bs_icon 'code-slash' %} タイトル</th>
       <th>{% bs_icon 'tags' %} タグ</th>
       <th>{% bs_icon 'chat-left' %}</th>
@@ -18,7 +18,7 @@
       {% if need_poster %}
       <th class="align-middle">{{ snippet.created_by }}</th>
       {% endif %}
-      <th class="table-date align-middle">{{ snippet.created_at|date:"Y/m/d H:i:s"  }}</th>
+      <th class="align-middle">{{ snippet.created_at|date:"Y/m/d H:i:s" }}</th>
       <th class="align-middle">
         <a href="{% url 'snippet_detail' snippet.id %}">
           {{ snippet.title }}
