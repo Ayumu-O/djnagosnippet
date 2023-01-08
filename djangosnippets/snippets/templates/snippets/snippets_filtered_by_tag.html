@@ -2,9 +2,9 @@
 {% load bootstrap_icons %}
 
 {% block main %}
-<h2>{% bs_icon 'person-circle' size='1.5rem' %} {{ user.username }} さんのマイページ</h2>
+<h2>{% bs_icon 'tag-fill' size='1.5rem' %} {{ tag_name }} のスニペット</h2>
 {% if page_obj %}
-{% include "snippets/table.html" with page_obj=page_obj need_poster=False %}
+{% include "snippets/table.html" with page_obj=page_obj need_poster=True %}
 {% else %}
 <p>スニペットはまだ投稿されていません。</p>
 {% endif %}

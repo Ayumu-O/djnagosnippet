@@ -26,7 +26,9 @@
       </th>
       <th class="align-middle">
         {% for tag in snippet.tags.all %}
-          <a href="#" class="btn btn-outline-primary btn-sm me-1 mb-1 ">{{ tag }}</a>
+          <a href="{% url 'filter_by_tag' tag.name%}"
+            class="btn btn-outline-primary btn-sm me-1 mb-1 ">{{ tag }}</a
+          >
         {% endfor %}
       </th>
       <th class="align-middle text-center">{{ snippet.comments.all|length }}</th>

@@ -85,6 +85,18 @@ def my_snippets(request):
     context = {'page_obj': page_obj}
     return render(request, 'snippets/mypage.html', context)
 
+def snippet_filter_by_tag(request, tag_name):
+    snippets = Snippet.objects.filter(tags__name__in=[tag_name])\
+        .select_related('created_by')\
+        .prefetch_related('tags')\
+        .prefetch_related('comments')\
+        .order_by('-created_at')
+    paginator = Paginator(snippets, 10)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    context = {'page_obj': page_obj, 'tag_name': tag_name}
+    return render(request, 'snippets/snippets_filtered_by_tag.html', context)
+
 @login_required
 def comment_new(request, snippet_id):
     if request.method == 'POST':

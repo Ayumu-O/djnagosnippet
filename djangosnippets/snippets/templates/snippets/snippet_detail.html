@@ -18,7 +18,7 @@
   {% if tags %}
   <ul class="nav justify-content-start">
     {% for tag in tags %}
-      <li><a href="#" class="btn btn-outline-primary me-2"
+      <li><a href="{% url 'filter_by_tag' tag.name %}" class="btn btn-outline-primary me-2"
         >{% bs_icon 'tag-fill' %} {{ tag }}</a></li
       >
     {% endfor %}
