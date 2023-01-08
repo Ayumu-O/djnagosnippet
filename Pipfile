@@ -12,6 +12,7 @@ django-taggit = "*"
 taggit-selectize = "*"
 six = "*"
 django-bootstrap-icons = "*"
+gunicorn = "*"
 
 [dev-packages]
 
